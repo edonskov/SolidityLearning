@@ -1,3 +1,7 @@
+/**
+ *Submitted for verification at Etherscan.io on 2021-02-24
+*/
+
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity >=0.6.0 <0.8.0;
@@ -36,7 +40,8 @@ contract Task09 {
     
     function addUser(uint number, uint balance, Operator operator) external {
         (uint current_number, , ) = getUserByNumber(number);
-        require (current_number == 0);
+        require (current_number == 0 || number > 0, "Wrong number");
+        require (users.length > 100, "Contract is full!");
         
         users.push(User(number, balance, operator));
         emit ChangeStruct(msg.sender, number, balance, operator);
