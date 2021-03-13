@@ -32,10 +32,14 @@ contract Task14 {
     }
     
     function sendByOwner(address payable _receiver, uint value) public onlyOwner {
-        _receiver.isContract();
-        _receiver.sendValue(value);
-        balance -= value;
-        emit Send(msg.sender, value);
+        if(!_receiver.isContract()) {
+            _receiver.sendValue(value);
+            balance -= value;
+            emit Send(msg.sender, value);
+        }
+        else { 
+            revert();
+        }
     }    
     
     receive() external payable {
